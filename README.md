@@ -1,1 +1,1 @@
-# GURUAKASHSM.github.io
+# guruakash.me
