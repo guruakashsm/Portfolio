@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Rock Paper Scissors</title>
+  <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow: hidden;
+      /* Hide overflow for the glitter */
+    }
+
+    h1 {
+      font-size: 32px;
+      margin: 20px 0;
+    }
+
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .choice-container {
+      display: flex;
+      justify-content: center;
+      width: 60%;
+    }
+
+    .choice-button {
+      background-color: #000;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px;
+      cursor: pointer;
+      box-shadow: 3px 3px 5px #888888;
+      transition: transform 0.2s;
+    }
+
+    .choice-button:hover {
+      transform: scale(1.05);
+    }
+
+    .choice-button img {
+      background-color: transparent;
+      display: block;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+
+    .choice-result {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .choice-result strong {
+      font-size: 20px;
+      margin: 10px;
+    }
+
+    #user-choice,
+    #computer-choice {
+      margin: 20px;
+      text-align: center;
+    }
+
+    #result {
+      font-size: 24px;
+      /* Increase font size for result */
+      font-weight: bold;
+      /* Make the result text bold */
+    }
+
+    #score {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+
+    .glitter {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #f0f;
+      opacity: 0.7;
+      animation: glitter-fall 4s linear infinite, glitter-fade 4s linear infinite;
+    }
+
+    @keyframes glitter-fall {
+      0% {
+        transform: translateY(-100%);
+        /* Start from the top */
+      }
+
+      100% {
+        transform: translateY(100%);
+      }
+    }
+
+    @keyframes glitter-fade {
+      0% {
+        opacity: 0.7;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .transparent-emoji {
+      background-color: transparent;
+    }
+
+    button {
+      background-color: #ff7043;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 3px 3px 5px #888888;
+    }
+
+    button:hover {
+      background-color: #ff5722;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Rock Paper Scissors</h1>
+
+  <div class="game-container">
+    <div class="choice-container">
+      <div class="choice-button" onclick="result('rock')">
+        <img src="rock-emoji.png" alt="Rock">
+      </div>
+      <div class="choice-button" onclick="result('paper')">
+        <img src="paper-emoji.png" alt="Paper">
+      </div>
+      <div class="choice-button" onclick="result('scissor')">
+        <img src="scissor-emoji.png" alt="Scissor">
+      </div>
+    </div>
+  </div>
+
+  <div class="choice-result">
+    <div id="user-choice">
+      <strong>Your Choice:</strong>
+    </div>
+    <div id="computer-choice">
+      <strong>Computer's Choice:</strong>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div id="result"></div>
+  <br>
+  <div id="score">Wins: 0, Losses: 0, Draws: 0</div>
+
+  <div id="glitter-container"></div> <!-- Glitter container -->
+
+  <button onclick="resetScore()">Reset Score</button>
+
+  <script>
+    let overallResult = JSON.parse(localStorage.getItem('overallResult')) || {
+      win: 0,
+      lose: 0,
+      draw: 0,
+    };
+
+    // Initialize the score display
+    updateScore();
+
+    function result(userChoice) {
+      const choice = computeChoice();
+      let outcome = "";
+
+      if (userChoice === "rock") {
+        if (choice === "rock") {
+          outcome = "It's a draw!";
+        } else if (choice === "paper") {
+          outcome = "You lose!";
+        } else {
+          outcome = "You win!";
+        }
+      } else if (userChoice === "paper") {
+        if (choice === "rock") {
+          outcome = "You win!";
+        } else if (choice === "paper") {
+          outcome = "It's a draw!";
+        } else {
+          outcome = "You lose!";
+        }
+      } else {
+        if (choice === "rock") {
+          outcome = "You lose!";
+        } else if (choice === "paper") {
+          outcome = "You win!";
+        } else {
+          outcome = "It's a draw!";
+        }
+      }
+
+      document.getElementById("user-choice").innerHTML = `<strong>Your Choice:</strong> <img style="height:100px; width:100px" src="${userChoice}-emoji.png" alt="${userChoice}">`;
+      document.getElementById("computer-choice").innerHTML = `<strong>Computer's Choice:</strong> <img style="height:100px; width:100px" src="${choice}-emoji.png" alt="${choice}">`;
+      document.getElementById("result").innerHTML = `<strong>Result:</strong> ${outcome}`;
+
+      if (outcome === "You win!") {
+        overallResult.win++;
+        startGlitter();
+        startGlitter();
+        startGlitter();
+        startGlitter();
+        startGlitter();
+        startGlitter();
+      } else if (outcome === "You lose!") {
+        overallResult.lose++;
+        //sprinkleSorrowEmojis();
+      } else {
+        overallResult.draw++;
+      }
+
+      localStorage.setItem('overallResult', JSON.stringify(overallResult));
+
+      updateScore();
+    }
+
+    function startGlitter() {
+      const glitterContainer = document.getElementById("glitter-container");
+      const glitter = document.createElement("div");
+      glitter.className = "glitter";
+      glitter.style.left = Math.random() * 100 + "vw"; // Random horizontal position
+      // glitter.style.top = "0"; // Set the initial position at the top of the page
+      glitterContainer.appendChild(glitter);
+
+      setTimeout(() => {
+        glitterContainer.removeChild(glitter);
+      }, 2000); // Remove the glitter particle after 2 seconds
+    }
+
+    function updateScore() {
+      // Display the win, loss, and draw counts from local storage
+      document.getElementById("score").textContent = `Wins: ${overallResult.win}, Losses: ${overallResult.lose}, Draws: ${overallResult.draw}`;
+    }
+
+    function computeChoice() {
+      const randomNo = Math.random();
+      let choice = "";
+
+      if (randomNo >= 0 && randomNo < 1 / 3) {
+        choice = "rock";
+      } else if (randomNo >= 1 / 3 && randomNo < 2 / 3) {
+        choice = "paper";
+      } else {
+        choice = "scissor";
+      }
+
+      return choice;
+    }
+
+    function resetScore() {
+      localStorage.removeItem('overallResult');
+      overallResult = {
+        win: 0,
+        lose: 0,
+        draw: 0,
+      };
+
+      document.getElementById("user-choice").innerHTML = "<strong>Your Choice:</strong>";
+      document.getElementById("computer-choice").innerHTML = "<strong>Computer's Choice:</strong>";
+      document.getElementById("result").innerHTML = "";
+
+      updateScore();
+    }
+/*
+    function sprinkleSorrowEmojis() {
+      const glitterContainer = document.getElementById("glitter-container");
+      const numEmojis = 5; // Number of emojis to sprinkle
+
+      for (let i = 0; i < numEmojis; i++) {
+        const emoji = document.createElement("img");
+        emoji.src = "sorry.jpg"; // Replace with the path to your modified sorrow emoji image
+        emoji.style.width = "30px"; // Adjust the size as needed
+        emoji.style.height = "30px"; // Adjust the size as needed
+        emoji.style.position = "absolute";
+        emoji.style.left = Math.random() * 100 + "vw";
+        emoji.style.top = "0";
+        emoji.classList.add("transparent-emoji"); // Add the transparent-emoji class
+        glitterContainer.appendChild(emoji);
+
+        setTimeout(() => {
+          glitterContainer.removeChild(emoji);
+        }, 2000); // Remove the emoji after 2 seconds
+      }
+    }
+*/
+  </script>
+</body>
+
+</html>
