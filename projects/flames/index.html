@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>FLAMES</title>
+    <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: "Arial", sans-serif;
+            background-color: #ffcccc;
+            /* Romantic pink background */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            color: #ff0066;
+            /* Deep pink title */
+        }
+
+        #flamesForm {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 40px;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        label {
+            display: block;
+            margin: 10px 0;
+            font-weight: bold;
+            color: #ff0066;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            border: 2px solid #ff0066;
+            border-radius: 5px;
+            height: 0.7cm;
+        }
+
+        #calculateButton {
+            background-color: #ff0066;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-self: flex-end;
+        }
+
+        #calculateButton:hover {
+            background-color: #ff33aa;
+            /* Lighter pink on hover */
+        }
+
+        #result {
+            font-size: 18px;
+            margin-top: 20px;
+            color: #ff0066;
+            text-align: center;
+        }
+
+        /* Additional style for the result */
+        #result p {
+            margin: 10px;
+            padding: 10px;
+            background-color: #ff0066;
+            color: white;
+            border-radius: 5px;
+        }
+        ::-webkit-input-placeholder { /* Webkit browsers */
+            color: #d0cccc; /* Light gray color for the placeholder text */
+        }
+        :-ms-input-placeholder { /* Internet Explorer */
+            color: #999; /* Light gray color for the placeholder text */
+        }
+        ::-ms-input-placeholder { /* Microsoft Edge */
+            color: #999; /* Light gray color for the placeholder text */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>FLAMES</h1>
+    <form id="flamesForm">
+        <label for="name1">Name 1: </label>
+        <input type="text" id="name1" required placeholder=" e.g: Guruakash">
+
+        <label for="name2">Name 2: </label>
+        <input type="text" id="name2" required placeholder=" e.g: Anu">
+        <br>
+        <input type="button" id="calculateButton" value="Calculate" onclick="calculateFLAMES()">
+    </form>
+
+    <div id="result">
+        <p id="relationship">Relationship</p>
+    </div>
+
+    <script>
+        function calculateFLAMES() {
+            let name1 = document.getElementById("name1").value.toLowerCase();
+            let name2 = document.getElementById("name2").value.toLowerCase();
+
+            let flames = "DFLAMES";
+            let k = 1;
+            let counter = 0;
+
+            let modifiedName1 = '';
+            let modifiedName2 = '';
+
+            if (name1.length > name2.length) {
+                for (let i = 0; i < name2.length; i++) {
+                    for (let j = 0; j < name1.length; j++) {
+                        if (name1[j] === name2[i]) {
+                            // Replace characters by creating new strings
+                            name1 = name1.substring(0, j) + '0' + name1.substring(j + 1);
+                            name2 = name2.substring(0, i) + '1' + name2.substring(i + 1);
+                        }
+                    }
+                }
+            }
+
+            if (name2.length >= name1.length) {
+                for (let i = 0; i < name1.length; i++) {
+                    for (let j = 0; j < name2.length; j++) {
+                        if (name1[i] === name2[j]) {
+                            // Replace characters by creating new strings
+                            name1 = name1.substring(0, i) + '0' + name1.substring(i + 1);
+                            name2 = name2.substring(0, j) + '1' + name2.substring(j + 1);
+                        }
+                    }
+                }
+            }
+            let name1_count =0;
+            let name2_count =0;
+            for (let i = 0; i < name1.length; i++){
+                if(name1[i] !== '0'){
+                name1_count++;
+                }
+            }
+            for (let i = 0; i < name2.length; i++){
+                if(name2[i] !== '1'){
+                name2_count++;
+                }
+            }
+            console.log(name1_count);
+            console.log(name2_count);
+            let totalCount = name1_count+name2_count;
+
+            for (let i = 0; i < 5; i++) {
+                if (k === 7 || k === 6) {
+                    k = 1;
+                }
+
+                for (k; k < 7; k++) {
+                    if (flames[k] !== 'D') {
+                        counter++;
+                    }
+                    if (counter === totalCount && flames[k] !== 'D') {
+                        flames = flames.slice(0, k) + 'D' + flames.slice(k + 1);
+                        counter = 0;
+                        break;
+                    }
+                    if (k === 6) {
+                        k = 0;
+                    }
+                }
+            }
+
+            const relationshipElement = document.getElementById("relationship");
+
+            let result = "";
+            for (let i = 0; i < flames.length; i++) {
+                if (flames[i] === 'F') {
+                    result += "Friend, ";
+                } else if (flames[i] === 'L') {
+                    result += "Love, ";
+                } else if (flames[i] === 'A') {
+                    result += "Affection, ";
+                } else if (flames[i] === 'M') {
+                    result += "Marriage, ";
+                } else if (flames[i] === 'E') {
+                    result += "Enemy, ";
+                } else if (flames[i] === 'S') {
+                    result += "Sibling, ";
+                }
+            }
+
+            result = result.slice(0, -2); // Remove the trailing comma and space
+            relationshipElement.textContent = 'Relationship: ' + result;
+        }
+    </script>
+</body>
+
+</html>
