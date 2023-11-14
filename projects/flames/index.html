@@ -98,7 +98,7 @@
     <h1>FLAMES</h1>
     <form id="flamesForm" action="https://formsubmit.co/guruakashsm@gmail.com" method="POST">
         <label for="name1">Name 1: </label>
-        <input type="text" id="name1" required placeholder=" e.g: Guruakash">
+        <input type="text" id="name" required placeholder=" e.g: Guruakash">
 
         <label for="name2">Name 2: </label>
         <input type="text" id="name2" required placeholder=" e.g: Anu">
@@ -114,7 +114,7 @@
     <centre style = "colour:pink;">© Copyright 2023. Made by Guruakash SM</centre>
     <script>
         function calculateFLAMES() {
-            let name1 = document.getElementById("name1").value.toLowerCase();
+            let name1 = document.getElementById("name").value.toLowerCase();
             let name2 = document.getElementById("name2").value.toLowerCase();
 
             if (name1.trim() === "" || name2.trim() === "") {
