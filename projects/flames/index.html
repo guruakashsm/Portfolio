@@ -96,32 +96,31 @@
 
 <body>
     <h1>FLAMES</h1>
-    <form id="flamesForm" >
+    <form id="flamesForm">
         <label for="name1">Name 1: </label>
-        <input type="text" id="name" required placeholder=" e.g: Guruakash">
+        <input type="text" id="name1" required placeholder=" e.g: Guruakash">
 
         <label for="name2">Name 2: </label>
         <input type="text" id="name2" required placeholder=" e.g: Anu">
         <br>
-        <button type="submit" id="calculateButton" onclick="calculateFLAMES()">Calculate</button>
+        <input type="button" id="calculateButton" value="Calculate" onclick="calculateFLAMES()">
     </form>
 
     <div id="result">
         <p id="relationship">Relationship</p>
     </div>
-    <br>
-    <br>
-    <centre style = "colour:pink;">© Copyright 2023. Made by Guruakash SM</centre>
+
     <script>
         function calculateFLAMES() {
-            let name1 = document.getElementById("name").value.toLowerCase();
+            let name1 = document.getElementById("name1").value.toLowerCase();
             let name2 = document.getElementById("name2").value.toLowerCase();
+
 
             if (name1.trim() === "" || name2.trim() === "") {
                 alert("Please provide both names before calculating.");
                 return;
             }
-
+            
             let flames = "DFLAMES";
             let k = 1;
             let counter = 0;
