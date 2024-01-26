@@ -1,4 +1,4 @@
-const CACHE_NAME = 'pwa-GT_v1.0.4';
+const CACHE_NAME = 'pwa-PT_v1.0.0';
 const RESOURCES_TO_PRELOAD = [
 	'index.html',
 	'register-worker.js',
