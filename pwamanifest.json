@@ -1,0 +1,20 @@
+{
+	"name": "GTServiceTest",
+	"short_name": "GreenTechTest",
+	"icons": [
+		{
+			"src": "icons/icon_128.png",
+			"sizes": "128x128",
+			"type": "image/png"
+		},
+		{
+			"src": "icons/icon_144.png",
+			"sizes": "144x144",
+			"type": "image/png"
+		}
+	],
+	"start_url": "index.html",
+	"display": "standalone",
+	"background_color": "#244C7C",
+	"theme_color": "#FFFFFF"
+}
