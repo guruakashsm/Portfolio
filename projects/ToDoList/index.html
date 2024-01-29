@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo List</title>
+    <link rel="icon" href=
+    "assests/logo.png"
+              type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url('assests/list-icon-notebook-with-completed-todo-list-3d-render_471402-428.avif');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px; /* Add some margin for spacing */
+        }
+
+        .add-container,
+        .display-container {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            width: 45%; /* Set a specific width for both containers */
+            text-align: center;
+        }
+
+        .user-Input,
+        #user-Input-date,
+        #user-Input-time {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: #fff;
+        }
+
+        .status-checkbox {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="add-container">
+            <input placeholder="Work to be done" type="text" class="user-Input" id="user-Input">
+            <input type="date" id="user-Input-date">
+            <input type="time" id="user-Input-time">
+            <button onclick="addInput()">Add</button>
+        </div>
+
+        <div class="display-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Task</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const toDoList = [];
+        let i =0;
+        let check =0;
+        const userInput = document.getElementById('user-Input');
+        const userInputDate = document.getElementById('user-Input-date');
+        const userInputTime = document.getElementById('user-Input-time');
+        const tableBody = document.getElementById('table-body');
+
+        function addInput() {
+          
+            const inputStruct = {input: userInput.value, time: userInputTime.value, date: userInputDate.value};
+
+            toDoList.push(inputStruct);
+            localStorage.setItem('todolist', JSON.stringify(toDoList));
+            userInput.value = "";
+            userInputDate.value = "";
+            userInputTime.value = "";
+            displayData();
+        }
+
+        function displayData() {
+            const toDoList = JSON.parse(localStorage.getItem('todolist')) || [];
+            // Clear previous content
+            tableBody.innerHTML = "";
+
+            // Display each item in the array as a table row
+            toDoList.forEach((item, index) => {
+                const row = tableBody.insertRow();
+                const cellTask = row.insertCell(0);
+                const cellDate = row.insertCell(1);
+                const cellTime = row.insertCell(2);
+                const cellStatus = row.insertCell(3);
+
+                cellTask.innerHTML = item.input;
+                cellDate.innerHTML = item.date;
+                cellTime.innerHTML = item.time;
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.className = 'status-checkbox';
+                checkbox.addEventListener('change', () => deleteLocal(index, checkbox.checked));
+                cellStatus.appendChild(checkbox);
+            });
+        }
+
+        function deleteLocal(index, checked) {
+            if (checked) {
+                toDoList.splice(index, 1);
+                localStorage.setItem('todolist', JSON.stringify(toDoList));
+                displayData();
+            }
+        }
+
+        displayData();
+    </script>
+</body>
+
+</html>
