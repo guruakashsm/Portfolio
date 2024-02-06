@@ -1,0 +1,19 @@
+{
+  "background_color": "#2e2828",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "guruakash",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "guruakash",
+  "start_url": "/",
+  "theme_color": "#684747",
+  "icons": [
+    {
+      "src": "assests/logo.png",
+      "type": "image/x-icon"
+    }
+  ],
+  "id": "guruakash",
+  "description": "calculator"
+}
