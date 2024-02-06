@@ -3,12 +3,12 @@
     "name": "TODO LIST",
     "icons": [
       {
-        "src": "assets/logo.png",
+        "src": "assests/logo.png",
         "type": "image/png",
         "sizes": "192x192"
       },
       {
-        "src": "assets/logo.png",
+        "src": "assests/logo.png",
         "type": "image/png",
         "sizes": "512x512"
       }
