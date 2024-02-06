@@ -4,6 +4,14 @@
 <head>
     <title>FLAMES</title>
     <link rel="shortcut icon" href="logo.png" type="image/x-icon">
+
+      <link rel="manifest" href="manifest.json">
+  <script>
+        //if browser support service worker
+        if('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('sw.js');
+        };
+  </script>
     <style>
         body {
             font-family: "Arial", sans-serif;
