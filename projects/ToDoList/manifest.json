@@ -1,14 +1,14 @@
 {
-    "short_name": "Portfolio",
-    "name": "My PWA Portfolio",
+    "short_name": "TODO List",
+    "name": "TODO LIST",
     "icons": [
       {
-        "src": "assets/images/logo.png",
+        "src": "assets/logo.png",
         "type": "image/png",
         "sizes": "192x192"
       },
       {
-        "src": "assets/images/logo.png",
+        "src": "assets/logo.png",
         "type": "image/png",
         "sizes": "512x512"
       }
