@@ -1773,10 +1773,16 @@ Bannari Amman Institute of Technology, Sathy
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const messaging = getMessaging(app);
+  // const messaging = getMessaging(app);
   
   //onst token = getToken(messaging, {vapidKey: "BCrJwTk22v4foZjvCmawjXoagm6wQLmZI8LXlFlXMz5sg9mmRgssPWbD7y4QfTLZE4zJ4y9h2lCac1pFhYFs6sk"});
 
+ const messaging = app.messaging();
+  messaging. getToken({vapidKey: "BCrJwTk22v4foZjvCmawjXoagm6wQLmZI8LXlFlXMz5sg9mmRgssPWbD7y4QfTLZE4zJ4y9h2lCac1pFhYFs6sk"});
+
+  .then((currentToken) => {
+     console.log("Current token:", currentToken);
+  }
 
 
   
@@ -1788,3 +1794,6 @@ var token=getToken(messaging1, {vapidKey: "BCrJwTk22v4foZjvCmawjXoagm6wQLmZI8LXl
 </script>
   <script register-worker.js></script>
 </html>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-messaging.js"></script>
+
