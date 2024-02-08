@@ -1772,6 +1772,9 @@ Bannari Amman Institute of Technology, Sathy
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
+  const messaging = getMessaging(app);
+  const token = getToken(messaging, {vapidKey: "BCrJwTk22v4foZjvCmawjXoagm6wQLmZI8LXlFlXMz5sg9mmRgssPWbD7y4QfTLZE4zJ4y9h2lCac1pFhYFs6sk"});
+  console.log(token);
 </script>
   <script register-worker.js></script>
 </html>
